@@ -14,15 +14,20 @@ upload and run on chron job
 
 api = twitter.Api(os.environ.get('TWITTER_KEY'),
                   os.environ.get('TWITTER_SECRET'),
-                  os.environ.get('TWITTER_TOKEN'),
-                  os.environ.get('TWITTER_SECRET_TOKEN'))
+                  os.environ.get('TWITTER_ACCESS_TOKEN'),
+                  os.environ.get('TWITTER_ACCESS_STOKEN'))
 
 #print api.VerifyCredentials()
-print os.environ.get('TWITTER_KEY'),
+
+print os.environ.get('TWITTER_KEY'),os.environ.get('TWITTER_SECRET'),os.environ.get('TWITTER_ACCESS_TOKEN'),os.environ.get('TWITTER_ACCESS_STOKEN')
 
 # Initializing manager
 f = Forismatic()
 
 # Getting Quote object & printing quote and author
 q = f.get_quote()
-print u'%s\t%s' % (q.quote, q.author)
+quote_combined = u'%s\t%s' % (q.quote, q.author)
+
+print quote_combined
+
+#status = api.PostUpdate(quote_combined)
