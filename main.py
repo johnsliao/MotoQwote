@@ -31,19 +31,32 @@ logging.info('Retrieved quote: %s, -%s', q.quote, q.author)
 
 # IMAGE POST TO TWITTER
 if len(q.quote)+len(q.author)+1>140 or roll(): # 1:10 chance to post image or >140 char
+    print 'Image posting...'
     text2img.text2img(q.quote,q.author)
+
     fname = open("quote_img.png", 'rb')
-    twitter.upload_media(status = "#motivationalquote #"+q.author, media = fname)
+    hashtags = '#motivational #quote '
+
+    for name in q.author.split():
+        hashtags+='#'
+        hashtags+=name
+        hashtags+=' '
+
+    print hashtags
+
+    twitter.update_status_with_media(status = hashtags, media = fname)
+    print 'complete'
 
 # TEXT ONLY POST TO TWITTER
-else:
-    combined_quote = q.quote
-    combined_quote += '-'
-    combined_quote += q.author
-
-    if len(combined_quote)+len(" #quote #motivation")<=140: # add hash tags if enough space
-        combined_quote += " #quote #motivation"
-    elif len(combined_quote)+len(" #quote")<=140:
-        combined_quote += " #quote"
-
-    twitter.update_status(status=combined_quote)
+# else:
+#     print 'Text posting...'
+#     combined_quote = q.quote
+#     combined_quote += '-'
+#     combined_quote += q.author
+#
+#     if len(combined_quote)+len(" #quote #motivation")<=140: # add hash tags if enough space
+#         combined_quote += " #quote #motivation"
+#     elif len(combined_quote)+len(" #quote")<=140:
+#         combined_quote += " #quote"
+#
+#     twitter.update_status(status=combined_quote)
