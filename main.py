@@ -1,12 +1,21 @@
+# Python libs
 import os
-import config
-import text2img
-import json
+import logging
+import random
 
 # Third-party dependencies
 import twython
-
 from forismatic import Forismatic
+import text2img
+
+def roll():
+    a = random.randint(0,9)
+    if a<5:
+        return True
+    else:
+        return False
+
+logging.basicConfig(format='%(asctime)s %(message)s', filename='quote.log',level=logging.INFO)
 
 # Twitter settings
 twitter = twython.Twython(os.environ.get('TWITTER_KEY'),
@@ -16,16 +25,25 @@ twitter = twython.Twython(os.environ.get('TWITTER_KEY'),
 
 # Initializing manager
 f = Forismatic()
-
-# Getting Quote object & printing quote and author
-
 q = f.get_quote()
 
-print q.quote
+logging.info('Retrieved quote: %s, -%s', q.quote, q.author)
 
-# run text2img with paramters
-text2img.text2img(q.quote,q.author)
+# IMAGE POST TO TWITTER
+if len(q.quote)+len(q.author)+1>140 or roll(): # 1:10 chance to post image or >140 char
+    text2img.text2img(q.quote,q.author)
+    fname = open("quote_img.png", 'rb')
+    twitter.upload_media(status = "#motivationalquote #"+q.author, media = fname)
 
-# post image to twitter
-f = open("a_test.png", 'rb')
-twitter.upload_media(status = "#motivationquote", media = f)
+# TEXT ONLY POST TO TWITTER
+else:
+    combined_quote = q.quote
+    combined_quote += '-'
+    combined_quote += q.author
+
+    if len(combined_quote)+len(" #quote #motivation")<=140: # add hash tags if enough space
+        combined_quote += " #quote #motivation"
+    elif len(combined_quote)+len(" #quote")<=140:
+        combined_quote += " #quote"
+
+    twitter.update_status(status=combined_quote)

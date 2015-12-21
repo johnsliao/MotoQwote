@@ -40,7 +40,7 @@ def text2img(quote, author):
 
     draw.text((20, START_HEIGHT+line_height*len(lines)+line_height),'-'+author,(0,0,0),font=font)
 
-    img.save("a_test.png")
+    img.save("quote_img.png")
 
 if __name__=='__main__':
     text2img('He sells seashells down by the seashore','Albert Einstein')
