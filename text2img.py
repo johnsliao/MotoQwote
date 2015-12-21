@@ -1,55 +1,46 @@
-__author__ = 'johnliao'
-
-# Third Party Resources
+# Third-party dependencies
 from PIL import ImageFont
 from PIL import Image
 from PIL import ImageDraw
 
-# Settings
-CANVAS_HEIGHT=500
-CANVAS_WIDTH=500
-MAX_HEIGHT=400
-MAX_WIDTH=435
-FONT_NAME="Arial.ttf"
-QUOTE="You learn to speak by speaking, to study by studying, to run by running, to work by working; in just the same way, you learn to love by loving. "
-FONT_SIZE=40
-START_HEIGHT=100
+from config import *
 
-font = ImageFont.truetype(FONT_NAME,FONT_SIZE)
-img=Image.new("RGBA", (CANVAS_WIDTH,CANVAS_HEIGHT),(255,255,255))
-draw = ImageDraw.Draw(img)
+def parse_text(quote, draw, font):
+    lines = []
+    line = ''
 
-LINE_HEIGHT = draw.textsize(QUOTE,font)[1]
+    for word in quote.split():
+        # if added word goes over, create new line
+        if draw.textsize(line+word,font)[0]>MAX_WIDTH:
+            lines.append(line)
+            line=''
+            line+=word
+            line+=' '
+        else:
+            line+=word
+            line+=' '
 
-# Parse the lines
+    lines.append(line) # add last line
 
-done = False
-lines = []
-line = ''
+    return lines
 
-for word in QUOTE.split():
-    # if added word goes over, create new line
-    text_width = draw.textsize(line,font)[0]
-    print "for |||", line,"||| the width is", text_width
+def text2img(quote, author):
+    # declare PIL objects
+    font = ImageFont.truetype(FONT_NAME,FONT_SIZE)
+    img=Image.new("RGBA", (CANVAS_WIDTH,CANVAS_HEIGHT),(255,255,255))
+    draw = ImageDraw.Draw(img)
 
-    if draw.textsize(line+word,font)[0]>MAX_WIDTH:
-        lines.append(line)
-        line=''
-        line+=word
-        line+=' '
-    else:
-        line+=word
-        line+=' '
+    lines = parse_text(quote, draw, font)
 
-lines.append(line) # add last line
+    line_height = draw.textsize("T",font)[1] # use dummy char T to find line height
 
-# Create the img
+    # Create the img
+    for num_lines in range(len(lines)):
+        draw.text((20, START_HEIGHT+line_height*num_lines),lines[num_lines],(0,0,0),font=font)
 
-for num_lines in range(len(lines)):
-    draw.text((20, START_HEIGHT+LINE_HEIGHT *num_lines),lines[num_lines],(0,0,0),font=font)
+    draw.text((20, START_HEIGHT+line_height*len(lines)+line_height),'-'+author,(0,0,0),font=font)
 
-draw.text((20, START_HEIGHT+LINE_HEIGHT*len(lines)+LINE_HEIGHT),"- Some pino",(0,0,0),font=font)
+    img.save("a_test.png")
 
-draw = ImageDraw.Draw(img)
-
-img.save("a_test.png")
+if __name__=='__main__':
+    text2img('He sells seashells down by the seashore','Albert Einstein')

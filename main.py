@@ -1,33 +1,31 @@
 import os
+import config
+import text2img
+import json
 
 # Third-party dependencies
-import twitter
+import twython
+
 from forismatic import Forismatic
 
-'''
-To do
-Change access tokens to new account
-find python lib to convert text -> image
-create new volume in AWS
-upload and run on chron job
-'''
-
-api = twitter.Api(os.environ.get('TWITTER_KEY'),
+# Twitter settings
+twitter = twython.Twython(os.environ.get('TWITTER_KEY'),
                   os.environ.get('TWITTER_SECRET'),
                   os.environ.get('TWITTER_ACCESS_TOKEN'),
                   os.environ.get('TWITTER_ACCESS_STOKEN'))
-
-#print api.VerifyCredentials()
-
-print os.environ.get('TWITTER_KEY'),os.environ.get('TWITTER_SECRET'),os.environ.get('TWITTER_ACCESS_TOKEN'),os.environ.get('TWITTER_ACCESS_STOKEN')
 
 # Initializing manager
 f = Forismatic()
 
 # Getting Quote object & printing quote and author
+
 q = f.get_quote()
-quote_combined = u'%s\t%s' % (q.quote, q.author)
 
-print quote_combined
+print q.quote
 
-#status = api.PostUpdate(quote_combined)
+# run text2img with paramters
+text2img.text2img(q.quote,q.author)
+
+# post image to twitter
+f = open("a_test.png", 'rb')
+twitter.upload_media(status = "#motivationquote", media = f)
