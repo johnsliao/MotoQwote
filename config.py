@@ -8,3 +8,4 @@ MAX_WIDTH=435
 FONT_NAME="./fonts/arial.ttf"
 FONT_SIZE=40
 START_HEIGHT=100
+

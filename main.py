@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # Python libs
 import os
 import logging
@@ -25,11 +27,11 @@ twitter = twython.Twython(os.environ.get('TWITTER_KEY'),
 f = Forismatic()
 q = f.get_quote()
 
-logging.basicConfig(format='%(asctime)s %(message)s', filename='quote.log', level=logging.INFO)
-logging.info('Retrieved quote: %s, -%s', q.quote, q.author)
+#logging.basicConfig(format='%(asctime)s %(message)s', filename='quote.log', level=logging.INFO)
+#logging.info('Retrieved quote: %s, -%s', q.quote, q.author)
 
 # IMAGE POST TO TWITTER
-if len(q.quote) + len(q.author) + 1 > 140 or roll():  # 1:10 chance to post image or >140 char
+if len(q.quote) + len(q.author) + 1 > 140 or roll():  # 4:10 chance to post image or >140 char
     print 'Image posting...'
     text2img.text2img(q.quote, q.author)
 

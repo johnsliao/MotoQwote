@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # Third-party dependencies
 from PIL import ImageFont
 from PIL import Image
