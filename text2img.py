@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+import random
+
 # Third-party dependencies
 from PIL import ImageFont
 from PIL import Image
@@ -27,9 +29,17 @@ def parse_text(quote, draw, font):
     return lines
 
 def text2img(quote, author):
+
+    # IMG SETTINGS (COLOR/FONT)
+    FONT = FONT_NAME[random.randint(0,len(FONT_NAME))-1] # pick random font
+
+    c = random.randint(0,len(COLOR_SCHEME)-1)
+    BG_COLOR = COLOR_SCHEME[c]["bg"]
+    FONT_COLOR = COLOR_SCHEME[c]["font_color"]
+
     # declare PIL objects
-    font = ImageFont.truetype(FONT_NAME,FONT_SIZE)
-    img=Image.new("RGBA", (CANVAS_WIDTH,CANVAS_HEIGHT),(255,255,255))
+    font = ImageFont.truetype(FONT,FONT_SIZE)
+    img=Image.new("RGBA", (CANVAS_WIDTH,CANVAS_HEIGHT),BG_COLOR)
     draw = ImageDraw.Draw(img)
 
     lines = parse_text(quote, draw, font)
@@ -38,9 +48,9 @@ def text2img(quote, author):
 
     # Create the img
     for num_lines in range(len(lines)):
-        draw.text((20, START_HEIGHT+line_height*num_lines),lines[num_lines],(0,0,0),font=font)
+        draw.text((20, START_HEIGHT+line_height*num_lines),lines[num_lines],FONT_COLOR,font=font)
 
-    draw.text((20, START_HEIGHT+line_height*len(lines)+line_height),'-'+author,(0,0,0),font=font)
+    draw.text((20, START_HEIGHT+line_height*len(lines)+line_height),'-'+author,FONT_COLOR,font=font)
 
     img.save("quote_img.png")
 
