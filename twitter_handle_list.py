@@ -7,9 +7,12 @@ moti_handles = [
     'TonyRobbins',
     'JimRohnQuotes',
     'MotivatedLiving',
-    'FlTNESSpics',
-    'FlTFAM',
-    'FitivationaI',
     'EIiteFitness',
     'MotivationalQT',
+]
+
+trending_handles = [
+    'vine',
+    '9gag',
+    'buzzfeed',
 ]
