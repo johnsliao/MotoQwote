@@ -18,7 +18,7 @@ def mostRetweeted(): # Find the best tweet to RT
     max = 0
 
     for user in moti_handles:
-        json = twitter.get_home_timeline(screen_name=user, count=50)
+        json = twitter.get_user_timeline(screen_name=user, count=50)
 
         for x in range(50):
             RT_count = json[x]['retweet_count']
