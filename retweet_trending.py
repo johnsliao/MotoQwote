@@ -18,7 +18,6 @@ def mostRetweeted(): # Find the best tweet to RT
     max = 0
 
     for user in trending_handles:
-
         json = twitter.get_user_timeline(screen_name=user, count=20)
 
         for x in range(20):

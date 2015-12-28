@@ -17,7 +17,7 @@ FONT_NAME= ["./fonts/arial.ttf",
 COLOR_SCHEME = [
     {"bg":(35,39,34),"font_color":(255,255,255)}, # bg: grey, font: white
     {"bg":(255,255,255),"font_color":(0,0,0)}, # bg: white, font: black
-    {"bg":(0,0,0),"font_color":(255,255,255)}, # bg: grey, font: white
+    {"bg":(0,0,0),"font_color":(255,255,255)}, # bg: black, font: white
     {"bg":(250,250,243),"font_color":(121,52,73)}, # bg: off-white, font: purple
     {"bg":(239,240,243),"font_color":(43,100,130)}, # bg: silver, font: baby blue
 ]

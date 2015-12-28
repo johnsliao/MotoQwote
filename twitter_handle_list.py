@@ -6,9 +6,7 @@ moti_handles = [
     'motivation',
     'TonyRobbins',
     'JimRohnQuotes',
-    'MotivatedLiving',
     'EIiteFitness',
-    'MotivationalQT',
 ]
 
 trending_handles = [
