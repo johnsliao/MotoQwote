@@ -1,4 +1,9 @@
 # MotoQwote
+
+Growth
+Dec 17: 22 followers
+Dec 31: 187 followers
+
 Twitter handle that posts motivational quotes on a regular basis.
 
 Fully Automated Features:
