@@ -12,7 +12,7 @@ import text2img
 
 def roll():
     a = random.randint(0, 9)
-    if a < 5:
+    if a < 3:
         return True
     else:
         return False
@@ -31,12 +31,13 @@ q = f.get_quote()
 #logging.info('Retrieved quote: %s, -%s', q.quote, q.author)
 
 # IMAGE POST TO TWITTER
-if len(q.quote) + len(q.author) + 1 > 140 or roll():  # 4:10 chance to post image or >140 char
+if len(q.quote) + len(q.author) + 1 > 140 or roll():  # 2:10 chance to post image or >140 char
     print 'Image posting...'
     text2img.text2img(q.quote, q.author)
 
     fname = open("quote_img.png", 'rb')
-    hashtags = '#motivational #quote '
+    #hashtags = '#motivational #quote '
+    hashtags = ''
 
     for name in q.author.split():
         hashtags += '#'
@@ -55,9 +56,9 @@ else:
     combined_quote += '-'
     combined_quote += q.author
 
-    if len(combined_quote) + len(" #quote #motivation") <= 140:  # add hash tags if enough space
-        combined_quote += " #quote #motivation"
-    elif len(combined_quote) + len(" #quote") <= 140:
-        combined_quote += " #quote"
+    # if len(combined_quote) + len(" #quote #motivation") <= 140:  # add hash tags if enough space
+    #     combined_quote += " #quote #motivation"
+    # elif len(combined_quote) + len(" #quote") <= 140:
+    #     combined_quote += " #quote"
 
     twitter.update_status(status=combined_quote)
