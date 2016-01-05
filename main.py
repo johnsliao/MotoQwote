@@ -32,7 +32,7 @@ q = f.get_quote()
 #logging.info('Retrieved quote: %s, -%s', q.quote, q.author)
 
 # IMAGE POST TO TWITTER
-if len(q.quote) + len(q.author) + 1 > 140 or roll() or 1==1:  # 2:10 chance to post image or >140 char
+if len(q.quote) + len(q.author) + 1 > 140 or roll():  # 2:10 chance to post image or >140 char
     print 'Image posting...'
     text2img.text2img(q.quote, q.author)
 
