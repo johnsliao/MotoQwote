@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 # Python libs
 import os
@@ -31,17 +32,41 @@ q = f.get_quote()
 #logging.info('Retrieved quote: %s, -%s', q.quote, q.author)
 
 # IMAGE POST TO TWITTER
-if len(q.quote) + len(q.author) + 1 > 140 or roll():  # 2:10 chance to post image or >140 char
+if len(q.quote) + len(q.author) + 1 > 140 or roll() or 1==1:  # 2:10 chance to post image or >140 char
     print 'Image posting...'
     text2img.text2img(q.quote, q.author)
 
     fname = open("quote_img.png", 'rb')
+
+    phrases = [
+        '',
+        'Exactly.',
+        '🙌',
+        '👏👏',
+        'try it',
+        'the little things',
+        'I love this',
+        'always',
+        'say it',
+        '👌',
+        'Remember this',
+        'Seriously',
+        'Amen',
+        'hit me hard',
+        'Yes',
+        'This',
+        'Yup',
+        'So true',
+        'This is for you',
+    ]
+
     #hashtags = '#motivational #quote '
-    hashtags = ''
+    hashtags = random.choice(phrases)
+    hashtags += ' '
 
     for name in q.author.split():
         hashtags += '#'
-        hashtags += name
+        hashtags += name.encode('utf-8')
         hashtags += ' '
 
     print hashtags
