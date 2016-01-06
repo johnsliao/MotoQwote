@@ -13,7 +13,7 @@ import text2img
 
 def roll():
     a = random.randint(0, 9)
-    if a < 3:
+    if a < 2:
         return True
     else:
         return False
@@ -34,6 +34,7 @@ q = f.get_quote()
 # IMAGE POST TO TWITTER
 if len(q.quote) + len(q.author) + 1 > 140 or roll():  # 2:10 chance to post image or >140 char
     print 'Image posting...'
+
     text2img.text2img(q.quote, q.author)
 
     fname = open("quote_img.png", 'rb')
@@ -78,8 +79,9 @@ if len(q.quote) + len(q.author) + 1 > 140 or roll():  # 2:10 chance to post imag
 else:
     print 'Text posting...'
     combined_quote = q.quote
-    combined_quote += '-'
-    combined_quote += q.author
+    if q.author != '':
+        combined_quote += '-'
+        combined_quote += q.author
 
     # if len(combined_quote) + len(" #quote #motivation") <= 140:  # add hash tags if enough space
     #     combined_quote += " #quote #motivation"
