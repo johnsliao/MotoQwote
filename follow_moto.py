@@ -6,9 +6,7 @@ twitter = twython.Twython(os.environ.get('TWITTER_KEY'),
                           os.environ.get('TWITTER_ACCESS_TOKEN'),
                           os.environ.get('TWITTER_ACCESS_STOKEN'))
 
-def getTwitterID():
-
-    json = twitter.get_followers_list(screen_name='motivational', count=150)
+def getTwitterID(json):
 
     for x in range(150):
         follow_req_sent = json['users'][x]['follow_request_sent']
@@ -30,6 +28,16 @@ def getTwitterID():
 
     return -1
 
-twitterID=getTwitterID()
+json = twitter.get_followers_list(screen_name='motivational', count=150)
+
+twitterID=getTwitterID(json)
 assert twitterID != -1, "No twitter ID found"
-twitter.create_friendship(user_id=getTwitterID())
+twitter.create_friendship(user_id=twitterID)
+
+twitterID=getTwitterID(json)
+assert twitterID != -1, "No twitter ID found"
+twitter.create_friendship(user_id=twitterID)
+
+twitterID=getTwitterID(json)
+assert twitterID != -1, "No twitter ID found"
+twitter.create_friendship(user_id=twitterID)
