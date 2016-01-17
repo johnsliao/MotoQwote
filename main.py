@@ -11,13 +11,6 @@ import twython
 from forismatic import Forismatic
 import text2img
 
-def roll():
-    a = random.randint(0, 9)
-    if a < 2:
-        return True
-    else:
-        return False
-
 # Twitter settings
 twitter = twython.Twython(os.environ.get('TWITTER_KEY'),
                           os.environ.get('TWITTER_SECRET'),
@@ -31,7 +24,7 @@ q = f.get_quote()
 # IMAGE POST TO TWITTER
 tweet_chars = len(q.quote) + len(q.author) + 3
 
-if tweet_chars > 140 or roll():  # 2:10 chance to post image or >140 char
+if tweet_chars > 140:
     print 'Image posting...'
 
     text2img.text2img(q.quote, q.author)
@@ -75,7 +68,7 @@ if tweet_chars > 140 or roll():  # 2:10 chance to post image or >140 char
         'love it',
     ]
 
-    if tweet_chars > 300:
+    if tweet_chars > 200:
         hashtags = 'worth the read'
     else:
         hashtags = random.choice(phrases)
