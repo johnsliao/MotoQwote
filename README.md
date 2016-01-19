@@ -2,7 +2,7 @@
 
 Motivational Twitter bot. [@Motoqwote](http://twitter.com/motoqwote)
 
-![alt tag](./textquote.png)
+![alt tag](textquote.png)
 
 ### Where is the bot running?
 
