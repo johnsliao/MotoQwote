@@ -1,23 +1,19 @@
-# MotoQwote
+# MotoQwote 
 
-Growth
+Motivational Twitter bot. [@Motoqwote](http://twitter.com/motoqwote)
 
-Dec 31: 187 followers
+![alt tag](./textquote.png)
 
-Dec 17: 22 followers
+### Where is the bot running?
 
+The bot is running on [Amazon Web Services (AWS)](https://aws.amazon.com/). The bot is not resource intensive and runs pretty much free for the first year as a micro instance.
 
-
-Twitter handle that posts motivational quotes on a regular basis.
-
-Fully Automated Features:
+### Some features
+```
 - Posts text quotes for quotes<140 chars
 - Posts image for quotes >140 chars
    - Different color schemes
    - Different fonts
    - Dynamic text placement based on text length
 - Retweet functionality based on most likes/favorites
-
-![alt tag](textquote.png)
-![alt tag](readme_img1.png)
-![alt tag](a_test.png)
+```
