@@ -1,6 +1,8 @@
 import os
 import twython
 
+FOLLOW_PER_RUN = 10 # Follow # people per script execution
+
 twitter = twython.Twython(os.environ.get('TWITTER_KEY'),
                           os.environ.get('TWITTER_SECRET'),
                           os.environ.get('TWITTER_ACCESS_TOKEN'),
@@ -30,14 +32,10 @@ def getTwitterID(json):
 
 json = twitter.get_followers_list(screen_name='motivational', count=150)
 
-twitterID=getTwitterID(json)
-assert twitterID != -1, "No twitter ID found"
-twitter.create_friendship(user_id=twitterID)
+for x in range(FOLLOW_PER_RUN):
+    twitterID=getTwitterID(json)
 
-twitterID=getTwitterID(json)
-assert twitterID != -1, "No twitter ID found"
-twitter.create_friendship(user_id=twitterID)
-
-twitterID=getTwitterID(json)
-assert twitterID != -1, "No twitter ID found"
-twitter.create_friendship(user_id=twitterID)
+    if twitterID == -1:
+        raise ValueError("Oopsies")
+    else:
+        twitter.create_friendship(user_id=twitterID)
